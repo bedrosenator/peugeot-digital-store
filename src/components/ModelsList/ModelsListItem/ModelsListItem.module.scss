@@ -1,0 +1,23 @@
+.list {
+  padding: 1rem;
+
+  .image {
+    width: 20rem;
+    object-fit: cover;
+    height: 12rem;
+  }
+
+  .description {
+    padding-top: 0.5rem;
+    font-weight: bold;
+    .title {
+      font-size: 1rem;
+    }
+
+    .price {
+      font-size: 1.4rem;
+      color: #80828a;
+      padding-top: 0.25rem;
+    }
+  }
+}

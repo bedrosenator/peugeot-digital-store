@@ -1,0 +1,24 @@
+<svg width="23" height="18" xmlns="http://www.w3.org/2000/svg">
+ <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+
+ <title>arrow_right</title>
+ <desc>Created with Sketch.</desc>
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g transform="rotate(-180 11.510403633117676,8.949745178222656) " fill-rule="evenodd" fill="none" id="Page-1">
+   <g fill="#007edb" id="product-page_color-chooser">
+    <g id="content">
+     <g id="navigation-bar">
+      <g id="arrows">
+       <path id="arrow_right" d="m14.535533,0l-1.41422,1.41421l6.6075,6.60579l-19.72882,0.00082l0,2l19.58682,-0.00082l-6.4655,6.46528l1.41422,1.41421l8.48528,-8.48528l-0.464,-0.46521l0.464,-0.46372l-8.48528,-8.48528z"/>
+      </g>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>

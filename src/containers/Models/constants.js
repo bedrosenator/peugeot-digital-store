@@ -1,0 +1,6 @@
+const SUCCESS = '_SUCCESS';
+const ERROR = '_ERROR';
+
+export const GET_MODELS = 'GET_MODELS';
+export const GET_MODELS_SUCCESS = GET_MODELS + SUCCESS;
+export const GET_MODELS_ERROR = GET_MODELS + ERROR;

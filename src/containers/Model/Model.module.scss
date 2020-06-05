@@ -1,0 +1,52 @@
+@import "src/styles/variables";
+
+.model {
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+  .title {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .modelDetails {
+    padding: 4rem 2rem 4rem;
+    width: $modelDetailsWidth;
+    background-color: $light-gray;
+    display: flex;
+    flex-direction: column;
+    .image {
+      width: 100%;
+    }
+    .name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      .trim {
+        font-weight: 400;
+      }
+      .color {
+        font-weight: 400;
+        font-size: 1.1rem;
+        padding-top: 0.5rem;
+      }
+    }
+    // todo move to var or separate component
+    .price {
+      margin-top: auto;
+      font-size: 1.4rem;
+      font-weight: bold;
+      text-align: center;
+    }
+  }
+
+  .modelEquipment {
+    padding: 4rem 4rem 6rem;
+    width: $modelTrimWidth;
+    display: flex;
+    flex-direction: column;
+
+
+
+  }
+}
