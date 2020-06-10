@@ -1,17 +1,13 @@
 export type TError = {
   status: number,
   statusText: string,
-};
+} | null;
 
-export type TModel = {
+export interface IModel {
   code: string,
   imageUrl: string,
   name: string,
   priceFrom: string,
-};
-
-export type TModelsList = {
-  data: TModel[]
 }
 
 export interface IColor {
@@ -19,6 +15,12 @@ export interface IColor {
   imageUrl: string,
   price: number,
   iconUrl: string,
+}
+
+export interface ICheckoutModel {
+  modelName: string,
+  colorName: string,
+  trimName: string,
 }
 
 export interface ITrim {
@@ -29,8 +31,6 @@ export interface ITrim {
 
 export interface IModelDetails {
   code: string,
-  // imageUrl: string,
   name: string,
-  // priceFrom: string,
-  trims: ITrim[]
-};
+  trims: ITrim[],
+}

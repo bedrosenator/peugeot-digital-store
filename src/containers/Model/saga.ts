@@ -1,46 +1,33 @@
-import { takeLatest, put, call, select } from 'redux-saga/effects';
-import config from 'config';
-import {getModelError, getModelSuccess, setActiveColor, setActiveTrim} from './actions';
-import { GET_MODEL, GET_MODEL_SUCCESS } from './constants';
-import {TRootReducerState} from 'reducer';
-import { utils } from 'utils';
+import { takeLatest, put, call } from 'redux-saga/effects';
+import { checkoutError, checkoutSuccess, getModelError, getModelSuccess, setActiveColor, setActiveTrim } from './actions';
+import { api, utils } from 'utils';
 import { ITrim, IModelDetails, IColor } from 'types/Model';
+import {ICheckout, IGetModel} from 'types/actions';
+import appHistory from 'appHistory';
+import { CHECKOUT, CHECKOUT_STATUS, GET_MODEL } from './constants';
 
-// todo move into api utils
-function* makeRequest(uri: string) {
+function* makeRequest(uri: string, method: string = 'GET', data?: object) {
   try {
-    const url = config.api.url + uri;
-    const modelsRequest = yield fetch(url, {
-      headers: {
-        'X-API-KEY': config.api.apiKey,
-      }
-    });
-    // todo refactor
-    if (modelsRequest.status !== 200) {
-      yield put(getModelError({
-        status: modelsRequest.status,
-        statusText: modelsRequest.statusText,
-      }));
-    } else {
-      return yield modelsRequest.json();
-    }
+    const models = yield api.request(uri, method, data);
+    return yield models.data;
   } catch (e) {
     console.error(e);
-    put(getModelError(e));
+    // todo rename to common error
+    return yield put(getModelError({
+      status: e.response.status,
+      statusText: e.response.statusText,
+    }));
   }
 }
 
 function* sagaWatcher() {
   yield takeLatest([GET_MODEL], getModelSaga);
+  yield takeLatest([CHECKOUT], checkoutSaga);
 }
 
-function* getModelSaga() {
-  const store = (state: TRootReducerState) => state;
-  const storeData = yield select(store);
-  const { model: { data } } = storeData;
-
+function* getModelSaga({ data }: IGetModel) {
   if (data) {
-    const model = yield makeRequest('cars/model/' + data.code);
+    const model = yield makeRequest('cars/model/' + data);
     const sortedByTrims = sortModelTrims(model);
     yield put(getModelSuccess(sortedByTrims));
     yield put(setActiveTrim(model.trims[0]));
@@ -61,6 +48,18 @@ function sortModelTrims(model: IModelDetails): IModelDetails {
     ...model,
     trims: sortedByPrice,
   };
+}
+
+function* checkoutSaga(checkoutModel: ICheckout) {
+  const model = yield makeRequest('cars/lead', 'POST', {...checkoutModel.data});
+
+  if (model && model.error) {
+    appHistory.push(`/checkout/${CHECKOUT_STATUS.FAILURE}`);
+    yield put(checkoutError(model.error));
+  } else {
+    yield call(checkoutSuccess);
+    appHistory.push(`/checkout/${CHECKOUT_STATUS.SUCCESS}`);
+  }
 }
 
 export default sagaWatcher;

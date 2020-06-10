@@ -1,0 +1,9 @@
+.colors {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  > img {
+    border: 1px solid red;
+  }
+}

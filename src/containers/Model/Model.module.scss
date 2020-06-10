@@ -10,43 +10,25 @@
     text-align: center;
   }
 
-  .modelDetails {
-    padding: 4rem 2rem 4rem;
-    width: $modelDetailsWidth;
-    background-color: $light-gray;
+  .modelEquipment {
+    width: $modelTrimWidth;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    .image {
-      width: 100%;
-    }
-    .name {
-      font-size: 1.4rem;
-      font-weight: 700;
-      .trim {
-        font-weight: 400;
-      }
-      .color {
-        font-weight: 400;
-        font-size: 1.1rem;
-        padding-top: 0.5rem;
-      }
-    }
-    // todo move to var or separate component
-    .price {
-      margin-top: auto;
-      font-size: 1.4rem;
-      font-weight: bold;
-      text-align: center;
+    padding: 0.5rem;
+
+    .equipmentSelection {
+      padding: 4rem 4rem 6rem;
     }
   }
 
-  .modelEquipment {
-    padding: 4rem 4rem 6rem;
-    width: $modelTrimWidth;
+  .navPanel {
+    margin-top: auto;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
 
-
-
+    .checkoutButton {
+      margin: 0 auto;
+    }
   }
 }

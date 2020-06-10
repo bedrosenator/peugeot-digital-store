@@ -22,6 +22,7 @@ const Trim: FC<ITrimProps> = ({ trim, active }: ITrimProps) => {
     <Button
       onClick={() => handleTrimClick(trim)}
       className={classNames(styles.priceModelButton, { [styles.active]: active  })}
+      variant="outlined"
     >
       <>
         <div className={styles.name}>{trim.name}</div>

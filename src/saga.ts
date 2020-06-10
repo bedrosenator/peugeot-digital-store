@@ -20,8 +20,4 @@ export default function* rootSaga() {
       }
     }))
   );
-
-  // yield [
-  //   fork(modelSaga), fork(modelsSaga)
-  // ];
 }

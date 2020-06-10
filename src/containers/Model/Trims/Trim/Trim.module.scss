@@ -1,15 +1,16 @@
 //todo refactor styles
+@import "styles/variables";
 
 .priceModelButton {
   padding: 2rem;
   margin-top: 1rem;
   background-color: #ffffff;
-  border: 1px solid #007edb;
+  border: 1px solid $navyBlue;
   font-weight: bold;
   transition: 0.7s;
   &.active {
     color: #ffffff;
-    background-color: #007edb;
+    background-color: $navyBlue;
     &:hover {
       background-color: rgba(0,126,219,.7);
     }
@@ -24,7 +25,7 @@
 
   .name {
     font-size: 1rem;
-    color: #007edb;
+    color: $navyBlue;
     text-transform: uppercase;
   }
   .price {

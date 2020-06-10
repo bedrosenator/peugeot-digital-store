@@ -1,0 +1,42 @@
+@import "styles/variables";
+
+.color {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 0 33%;
+  margin-bottom: 1rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:hover > .colorIcon {
+    border: 1px solid $navyBlue;
+  }
+
+  .name {
+    color: $nero;
+    font-size: 0.8rem;
+    padding-top: 0.5rem;
+  }
+
+  .price {
+    color: $gray40;
+    font-size: 0.8rem;
+    padding-top: 0.25rem;
+  }
+
+  .colorIcon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    padding: 0.25rem;
+    transition: 0.8s;
+    border: 1px solid transparent;
+
+    &.active {
+      border: 1px solid $navyBlue;
+    }
+  }
+}

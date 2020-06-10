@@ -22,7 +22,6 @@ export const getSelectedTrimSelector = createSelector(getModelDataSelector, (sta
 // });
 
 export const getColorsSelector = createSelector(getModelDataSelector, (state: TActionType) => {
-  debugger
   return state.selectedTrim.colors;
 });
 

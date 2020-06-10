@@ -3,14 +3,15 @@ import classnames from 'classnames';
 import Loader from 'react-loader-spinner';
 import styles from './PageContainer.module.scss';
 
-interface IPageContainerProps {
-  loading: boolean,
+type TPageContainerProps = {
+  loading?: boolean,
+  className?: string,
   children: ReactChild
 }
 
-export default function PageContainer({ loading, children }: IPageContainerProps) {
+export default function PageContainer({ loading = false, children, className }: TPageContainerProps) {
   return (
-    <div className={classnames(styles.pageContainer, { [styles.centered]: loading })}>
+    <div className={classnames(styles.pageContainer, className, { [styles.centered]: loading })}>
       <Loader
         type="Puff"
         color="#00BFFF"

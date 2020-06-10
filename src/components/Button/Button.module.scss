@@ -1,3 +1,28 @@
+@import "styles/variables";
+
 .button {
   cursor: pointer;
+  padding: 1.2rem 1.4rem;
+  border: none;
+  font-size: 1rem;
+
+  &.back {
+    background-color: transparent;
+  }
+
+  &.forward {
+    background-color: $navyBlue;
+  }
+
+  &.regular {
+    border: 1px solid $navyBlue;
+    background-color: $navyBlue;
+    border-radius: 3px;
+    color: $white;
+    text-transform: uppercase;
+  }
+
+  &.outlined {
+    background-color: transparent;
+  }
 }

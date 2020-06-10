@@ -1,38 +1,22 @@
 import { GET_MODELS, GET_MODELS_SUCCESS, GET_MODELS_ERROR } from 'containers/Models/constants';
-import {ModelsActionTypes, AppActionTypes, IGetModelsSuccess, IGetModels, IGetModelsError} from 'types/actions';
+import { ModelsActionTypes} from 'types/actions';
+import { IModel } from 'types/Model';
 
-export type TError = {
-  status: number,
-  statusText: string,
-};
-
-export type TModel = {
-  code: string,
-  imageUrl: string,
-  name: string,
-  priceFrom: string,
-};
-
-export type TModelsList = {
-  data: TModel[]
-}
-
-type TActionType = {
-  // type?: string,
-  // todo add model type
-  data: TModel[]
+interface IModelsReducer {
+  data: IModel[]
   loading: boolean,
   error: Error | null,
-};
+}
 
-const initialState: TActionType = {
+const initialState: IModelsReducer = {
   data: [],
   error: null,
   loading: false,
 };
+
 // todo change IGetModel to specific interface
-function modelsReducer(state = initialState, action: IGetModelsSuccess) {
-  switch (action.type) {
+function modelsReducer(state = initialState, { type, data = [] }: ModelsActionTypes): IModelsReducer {
+  switch (type) {
     case GET_MODELS:
       return {
         ...state,
@@ -41,14 +25,13 @@ function modelsReducer(state = initialState, action: IGetModelsSuccess) {
     case GET_MODELS_SUCCESS:
       return {
         ...state,
+        data: data,
         loading: false,
-        data: action.data,
       }
     case GET_MODELS_ERROR:
       return {
         ...state,
         loading: false,
-        // error: action.error,
       }
     default:
       return state;

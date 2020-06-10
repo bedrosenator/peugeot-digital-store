@@ -1,45 +1,48 @@
 import { GET_MODELS, GET_MODELS_SUCCESS, GET_MODELS_ERROR } from 'containers/Models/constants';
-import { TError, TModel } from 'containers/Models/reducer';
 import {
+  CHECKOUT,
+  CHECKOUT_ERROR, CHECKOUT_STATUS,
+  CHECKOUT_SUCCESS,
   GET_MODEL,
   GET_MODEL_ERROR,
   GET_MODEL_SUCCESS,
   SET_ACTIVE_COLOR,
   SET_ACTIVE_TRIM
 } from 'containers/Model/constants';
-import {ITrim, IModelDetails, IColor} from 'types/Model';
+import { ITrim, IModel, TError, IModelDetails, IColor, ICheckoutModel } from 'types/Model';
 
-export interface IGetModels {
+interface IBaseModel {
+  data?: IModelDetails | string,
+  error?: TError,
+}
+
+interface IBaseModels {
+  error?: TError,
+  data?: IModel[],
+}
+
+export interface IGetModels extends IBaseModels {
   type: typeof GET_MODELS,
-  // data?: TModel[],
-  // error?: TError,
 }
 
-export interface IGetModelsSuccess {
+export interface IGetModelsSuccess extends IBaseModels {
   type: typeof GET_MODELS_SUCCESS,
-  data: TModel[],
-  // error?: TError | null,
 }
 
-export interface IGetModelsError {
+export interface IGetModelsError extends IBaseModels {
   type: typeof GET_MODELS_ERROR,
-  error: TError,
-  // data?: TModel[]
 }
 
-export interface IGetModel {
+export interface IGetModel extends IBaseModel {
   type: typeof GET_MODEL,
-  data: string,
 }
 
-export interface IGetModelSuccess {
+export interface IGetModelSuccess extends IBaseModel {
   type: typeof GET_MODEL_SUCCESS,
-  data: IModelDetails,
 }
 
-export interface IGetModelError {
+export interface IGetModelError extends IBaseModel {
   type: typeof GET_MODEL_ERROR,
-  error: TError,
 }
 
 export interface ISetActiveTrim {
@@ -52,8 +55,31 @@ export interface ISetActiveColor {
   data: IColor,
 }
 
-export type ModelsActionTypes = IGetModels | IGetModelsError | IGetModelsSuccess;
+export interface ICheckout {
+  type: typeof CHECKOUT,
+  data: ICheckoutModel,
+}
 
-export type ModelActionTypes = IGetModel | IGetModelSuccess | IGetModelError | ISetActiveTrim | ISetActiveColor;
+export interface ICheckoutSuccess {
+  type: typeof CHECKOUT_SUCCESS,
+  data: typeof CHECKOUT_STATUS,
+}
+
+export interface ICheckoutError {
+  type: typeof CHECKOUT_ERROR,
+  error: TError,
+}
+
+export type ModelsActionTypes = IGetModels | IGetModelsSuccess | IGetModelsError;
+
+export type ModelActionTypes =
+  IGetModel
+  | IGetModelSuccess
+  | IGetModelError
+  | ISetActiveTrim
+  | ISetActiveColor
+  | ICheckout
+  | ICheckoutSuccess
+  | ICheckoutError;
 
 export type AppActionTypes = ModelsActionTypes | ModelActionTypes;

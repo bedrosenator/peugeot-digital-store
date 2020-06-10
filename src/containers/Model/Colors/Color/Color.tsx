@@ -1,25 +1,31 @@
 import React, { FC } from 'react';
+import { useDispatch } from 'react-redux';
+import classnames from 'classnames';
+import Price from 'components/Price';
 import { IColor } from 'types/Model';
-import Price from '../../../../components/Price';
+import { setActiveColor } from 'containers/Model/actions'
+import styles from './Color.module.scss';
 
 type TColorProps = {
   color: IColor,
   isActive: boolean,
 }
-
+// todo move dispatch to index props
 const Color: FC<TColorProps> = ({ color, isActive }: TColorProps) => {
+  const dispatch = useDispatch();
+  const setColor = () => {
+    dispatch(setActiveColor(color));
+  };
   return (
-    <div>
-      <img alt={color.name} src={color.iconUrl} />
-      <div>
+    <div onClick={setColor} className={styles.color}>
+      <img className={classnames(styles.colorIcon, { [styles.active]: isActive })} alt={color.name} src={color.iconUrl} />
+      <div className={styles.name}>
         {color.name}
-        <div>
-          {color.price === 0
-            ? "Standard"
-            : <Price price={color.price} />
-          }
-        </div>
       </div>
+      {color.price === 0
+        ? <div className={styles.price}>Standard</div>
+        : <Price className={styles.price} price={color.price} />
+      }
     </div>
   );
 };

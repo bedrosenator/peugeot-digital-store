@@ -10,6 +10,7 @@ import { Router } from "react-router";
 import './App.scss';
 import Models from 'containers/Models';
 import Model from 'containers/Model';
+import Checkout from 'containers/Model/Checkout';
 import appHistory from './appHistory';
 
 // todo move interfaces and types into one file
@@ -23,8 +24,9 @@ const App = () => {
         <Link to={`/models/1`}>Model 1</Link>
         <Link to="/models">Models</Link>
         <Switch>
-          <Route component={Model} path="/models/:id/:action" />
-          <Route component={Models} path="/models" />
+          <Route component={Checkout} path="/checkout/:status" />
+          <Route exact component={Model} path="/models/:id/:action" />
+          <Route exact component={Models} path="/models" />
           <Route exact path="/">Home</Route>
         </Switch>
       </Router>

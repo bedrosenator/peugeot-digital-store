@@ -1,16 +1,19 @@
-import { GET_MODELS, GET_MODELS_SUCCESS, GET_MODELS_ERROR } from 'containers/Models/constants';
 import {
-  ModelActionTypes,
-  AppActionTypes,
-  IGetModelsSuccess,
-  IGetModel,
-  IGetModelError,
-  IGetModelSuccess
+  IGetModelSuccess, ModelActionTypes,
 } from 'types/actions';
 
-import {GET_MODEL, GET_MODEL_ERROR, GET_MODEL_SUCCESS, SET_ACTIVE_TRIM} from './constants';
-import {sortBy} from '../../utils/utils';
-import { IColor, ITrim, IModelDetails } from 'types/Model';
+import {
+  CHECKOUT, CHECKOUT_ERROR,
+  CHECKOUT_SUCCESS,
+  GET_MODEL,
+  GET_MODEL_ERROR,
+  GET_MODEL_SUCCESS,
+  SET_ACTIVE_COLOR,
+  SET_ACTIVE_TRIM,
+  CHECKOUT_STATUS,
+} from './constants';
+
+import {IColor, ITrim, IModelDetails, ICheckoutModel} from 'types/Model';
 
 // export type TError = {
 //   status: number,
@@ -49,6 +52,8 @@ export type TActionType = {
   error: Error | null,
   selectedTrim: ITrim,
   selectedColor: IColor,
+  checkoutModel: ICheckoutModel,
+  checkoutStatus: boolean | null,
 };
 
 const initialState: TActionType = {
@@ -68,26 +73,35 @@ const initialState: TActionType = {
     price: 0,
     iconUrl: '',
   },
+  checkoutModel: {
+    modelName: '',
+    colorName: '',
+    trimName: '',
+  },
+  checkoutStatus: null,
   error: null,
   loading: false,
 };
 // todo change IGetModel to specific interface
-function modelsReducer(state = initialState, action: IGetModelSuccess) {
-  switch (action.type) {
+function modelsReducer(state = initialState, action: ModelActionTypes) {
+  // @ts-ignore
+  const { data, type, error } = action;
+  switch (type) {
     case GET_MODEL:
       return {
         ...state,
         loading: true,
         data: {
           ...state.data,
-          code: action.data,
-        }
+          code: data,
+        },
+        error: null,
       }
     case GET_MODEL_SUCCESS:
       return {
         ...state,
         loading: false,
-        data: { ...action.data },
+        data,
         // data: {
         //   ...action.data,
         //   trims: sortBy<ITrim>(action.data.trims, 'price')
@@ -95,16 +109,41 @@ function modelsReducer(state = initialState, action: IGetModelSuccess) {
       }
     // todo add error handling
     case GET_MODEL_ERROR:
+      debugger
       return {
         ...state,
         loading: false,
-        // error: action.error,
+        error,
       }
     case SET_ACTIVE_TRIM:
       return {
         ...state,
-        selectedTrim: action.data
-        // error: action.error,
+        selectedTrim: data,
+      }
+    case SET_ACTIVE_COLOR:
+      return {
+        ...state,
+        selectedColor: data,
+      }
+    case CHECKOUT:
+      return {
+        ...state,
+        checkoutModel: data,
+        checkoutStatus: null,
+        loading: true,
+      }
+    case CHECKOUT_SUCCESS:
+      return {
+        ...state,
+        checkoutStatus: CHECKOUT_STATUS.SUCCESS,
+        loading: false,
+      }
+    case CHECKOUT_ERROR:
+      return {
+        ...state,
+        error: data,
+        checkoutStatus: CHECKOUT_STATUS.FAILURE,
+        loading: false,
       }
     default:
       return state;

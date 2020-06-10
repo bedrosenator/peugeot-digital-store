@@ -1,21 +1,18 @@
 import React, { FC } from 'react';
-import {IColor, IModelDetails, ITrim} from 'types/Model';
+import { IColor } from 'types/Model';
 import Color from './Color';
-import { useSelector } from 'react-redux';
-import { getSelectedColorSelector } from '../selectors';
+import styles from './Colors.module.scss';
 
-type TColorsProps = { colors: IColor[] };
+type TColorsProps = {
+  colors: IColor[],
+  selectedColor: IColor,
+};
 
-const Colors: FC<TColorsProps> = (props: TColorsProps) => {
-  // const colors: IColor[] = [];
-  // const colors: IColor[] = useSelector(getColorsSelector);
-  // const selectedColor: IColor = {};
-  // const selectedColor: IColor = useSelector(getSelectedColorSelector);
-  debugger
+const Colors: FC<TColorsProps> = ({ colors, selectedColor }: TColorsProps) => {
   return (
-    <>
-      aaaa{/*{colors.map((color) => <Color color={color} isActive={selectedColor.name === color.name} />) }*/}
-    </>
+    <div className={styles.colors}>
+      {colors.map((color) => <Color key={color.name} color={color} isActive={selectedColor.name === color.name} />) }
+    </div>
   );
 };
 
