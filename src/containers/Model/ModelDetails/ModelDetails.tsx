@@ -13,16 +13,16 @@ export const ModelDetails: FC<TModelDetails> = ({ model, selectedTrim, selectedC
   const price = selectedTrim.price + selectedColor.price;
   return (
     <div className={styles.modelDetails}>
-      <div className={styles.name}>
-        {model.name} <span className={styles.trim}>{selectedTrim.name}</span>
-        <div className={styles.color}>{selectedColor.name}</div>
-      </div>
       <img
         title={selectedTrim.name}
         className={styles.image}
         alt={selectedColor.name}
         src={selectedColor.imageUrl}
       />
+      <div className={styles.name}>
+        {model.name} <span className={styles.trim}>{selectedTrim.name}</span>
+        <div className={styles.color}>{selectedColor.name}</div>
+      </div>
       <Price className={styles.price} price={price} />
     </div>
   )

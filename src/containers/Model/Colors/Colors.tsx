@@ -22,7 +22,7 @@ const Colors: FC<TColorsProps> = ({ colors, selectedColor, selectedTrim, model }
   };
   return (
     <>
-      <Title text="SELECT COLOR" />
+      <Title className={styles.title} text="SELECT COLOR" />
       <div className={styles.colors}>
         {colors.map((color) => <Color key={color.name} color={color} isActive={selectedColor.name === color.name} />) }
       </div>

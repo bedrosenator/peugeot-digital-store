@@ -21,14 +21,11 @@ const App = () => {
   return (
     <div className="car-service-app">
       <Router history={appHistory}>
-        <Link to="/">Home</Link>
-        <Link to={`/models/1`}>Model 1</Link>
-        <Link to="/models">Models</Link>
         <Switch>
           <Route component={Checkout} path="/checkout/:status" />
           <Route exact component={Model} path="/models/:id/:action" />
           <Route exact component={Models} path="/models" />
-          <Route exact path="/">Home</Route>
+          <Route exact path="/"><Link to="/models">CHOOSE YOUR NEW CAR</Link></Route>
         </Switch>
       </Router>
     </div>
