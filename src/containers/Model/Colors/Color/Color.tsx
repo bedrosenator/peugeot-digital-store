@@ -10,7 +10,7 @@ type TColorProps = {
   color: IColor,
   isActive: boolean,
 }
-// todo move dispatch to index props
+
 const Color: FC<TColorProps> = ({ color, isActive }: TColorProps) => {
   const dispatch = useDispatch();
   const setColor = () => {

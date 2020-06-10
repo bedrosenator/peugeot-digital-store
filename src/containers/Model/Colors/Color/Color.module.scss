@@ -4,7 +4,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex: 1 0 33%;
+  justify-content: space-between;
+  width: 33%;
+  min-width: 6rem;
+  flex-wrap: wrap;
   margin-bottom: 1rem;
 
   &:hover {
@@ -32,11 +35,17 @@
     height: 2.5rem;
     border-radius: 50%;
     padding: 0.25rem;
-    transition: 0.8s;
+    transition: 0.5s;
     border: 1px solid transparent;
+
+    > img {
+      width: 100%;
+      object-fit: cover;
+    }
 
     &.active {
       border: 1px solid $navyBlue;
+      padding: 0.15rem;
     }
   }
 }

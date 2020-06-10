@@ -16,6 +16,7 @@ import appHistory from './appHistory';
 // todo move interfaces and types into one file
 // todo move routes into one file
 // todo change all components to const
+// todo change to < title components all titles
 const App = () => {
   return (
     <div className="car-service-app">
