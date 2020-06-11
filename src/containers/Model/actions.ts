@@ -8,57 +8,57 @@ import {
   CHECKOUT_SUCCESS, CHECKOUT_ERROR
 } from './constants';
 import { ITrim, IModelDetails, IColor, TError, ICheckoutModel } from 'types/Model';
-import { AppActionTypes } from 'types/actions';
+import { ModelActionTypes } from 'types/actions';
 
-export const getModel = (id: string = ''): AppActionTypes => {
+export const getModel = (id: string = ''): ModelActionTypes => {
   return {
     type: GET_MODEL,
     data: id
   }
 };
 
-export const getModelSuccess = (data: IModelDetails): AppActionTypes => {
+export const getModelSuccess = (data: IModelDetails): ModelActionTypes => {
   return {
     type: GET_MODEL_SUCCESS,
     data,
   }
 };
 
-export const getModelError = (error: TError): AppActionTypes => {
+export const getModelError = (error: TError): ModelActionTypes => {
   return {
     type: GET_MODEL_ERROR,
     error,
   }
 };
 
-export const setActiveTrim = (data: ITrim): AppActionTypes => {
+export const setActiveTrim = (data: ITrim): ModelActionTypes => {
   return {
     type: SET_ACTIVE_TRIM,
     data,
   }
 };
 
-export const setActiveColor = (data: IColor): AppActionTypes => {
+export const setActiveColor = (data: IColor): ModelActionTypes => {
   return {
     type: SET_ACTIVE_COLOR,
     data,
   }
 };
 
-export const checkout = (data: ICheckoutModel): AppActionTypes => {
+export const checkout = (data: ICheckoutModel): ModelActionTypes => {
   return {
     type: CHECKOUT,
     data,
   }
 };
 
-export const checkoutSuccess = (): AppActionTypes => {
+export const checkoutSuccess = (): ModelActionTypes => {
   return {
     type: CHECKOUT_SUCCESS,
   }
 };
 
-export const checkoutError = (error: TError): AppActionTypes => {
+export const checkoutError = (error: TError): ModelActionTypes => {
   return {
     type: CHECKOUT_ERROR,
     error

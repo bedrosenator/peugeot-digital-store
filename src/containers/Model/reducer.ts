@@ -3,7 +3,8 @@ import {
 } from 'types/actions';
 
 import {
-  CHECKOUT, CHECKOUT_ERROR,
+  CHECKOUT,
+  CHECKOUT_ERROR,
   CHECKOUT_SUCCESS,
   GET_MODEL,
   GET_MODEL_ERROR,
