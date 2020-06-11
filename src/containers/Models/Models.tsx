@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import ModelsList from 'containers/Models/ModelsList';
 import { getModelsSelector } from 'containers/Models/selectors';
 import PageContainer from 'components/PageContainer/PageContainer';
+import { Title } from 'components/Title/Title';
 import { getModels } from './actions';
 import styles from './Models.module.scss';
 
@@ -20,7 +21,7 @@ const Models: FC = () => {
       <div className={classnames(styles.models)}>
         {!models.loading &&
           <>
-            <div className={styles.title}>CHOOSE YOUR NEW CAR</div>
+            <Title className={styles.title} text="CHOOSE YOUR NEW CAR" />
             <ModelsList models={models.data} />
           </>
         }
