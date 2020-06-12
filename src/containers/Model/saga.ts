@@ -1,24 +1,10 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
-import { checkoutError, checkoutSuccess, getModelError, getModelSuccess, setActiveColor, setActiveTrim } from './actions';
+import { checkoutError, checkoutSuccess, getModelError, getModelSuccess } from './actions';
 import { api, utils } from 'utils';
-import { ITrim, IModelDetails, IColor } from 'types/Model';
-import {ICheckout, IGetModel} from 'types/actions';
+import {ITrim, IModelDetails, IColor } from 'types/Model';
+import { ICheckout, IGetModel } from 'types/actions';
 import appHistory from 'appHistory';
 import { CHECKOUT, CHECKOUT_STATUS, GET_MODEL } from './constants';
-
-function* makeRequest(uri: string, method: string = 'GET', data?: object) {
-  try {
-    const models = yield api.request(uri, method, data);
-    return yield models.data;
-  } catch (e) {
-    console.error(e);
-    // todo rename to common error
-    return yield put(getModelError({
-      status: e.response.status,
-      statusText: e.response.statusText,
-    }));
-  }
-}
 
 function* sagaWatcher() {
   yield takeLatest([GET_MODEL], getModelSaga);
@@ -27,7 +13,7 @@ function* sagaWatcher() {
 
 function* getModelSaga({ data }: IGetModel) {
   if (data) {
-    const model = yield makeRequest('cars/model/' + data);
+    const model = yield api.request({ uri: `cars/model/${data}`, errorAction: getModelError });
     const sortedByTrims = sortModelTrims(model);
     yield put(getModelSuccess(sortedByTrims));
   }
@@ -49,7 +35,12 @@ function sortModelTrims(model: IModelDetails): IModelDetails {
 }
 
 function* checkoutSaga(checkoutModel: ICheckout) {
-  const model = yield makeRequest('cars/lead', 'POST', {...checkoutModel.data});
+  const model = yield api.request({
+    uri: 'cars/lead',
+    method: 'POST',
+    data: {...checkoutModel.data},
+    errorAction: checkoutError
+  });
 
   if (model && model.error) {
     appHistory.push(`/checkout/${CHECKOUT_STATUS.FAILURE}`);

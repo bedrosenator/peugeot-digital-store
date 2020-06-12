@@ -37,7 +37,7 @@ function Model({ match: { params: { id, step } } }: RouteComponentProps<TModelPa
   };
 
   useEffect(() => {
-    dispatch(getModel(id))
+    dispatch(getModel(id));
   }, [dispatch]);
 
   return (
