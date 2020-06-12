@@ -23,7 +23,7 @@ const App = () => {
       <Router history={appHistory}>
         <Switch>
           <Route component={Checkout} path="/checkout/:status" />
-          <Route exact component={Model} path="/models/:id/:action" />
+          <Route exact component={Model} path="/models/:id/:step" />
           <Route exact component={Models} path="/models" />
           <Route exact path="/"><Link to="/models">CHOOSE YOUR NEW CAR</Link></Route>
         </Switch>

@@ -1,30 +1,29 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import Price from 'components/Price';
-import {IColor, IModelDetails, ITrim} from 'types/Model';
 import styles from './ModelDetails.module.scss';
+import { useSelector } from 'react-redux';
+import {
+  getSelectedModelSelector,
+  totalPriceSelector
+} from '../selectors';
 
-type TModelDetails = {
-  model: IModelDetails,
-  selectedTrim: ITrim,
-  selectedColor: IColor,
-}
+export const ModelDetails: FC = () => {
+  const price = useSelector(totalPriceSelector);
+  const { name, trim } = useSelector(getSelectedModelSelector);
 
-export const ModelDetails: FC<TModelDetails> = ({ model, selectedTrim, selectedColor}) => {
-  const price = selectedTrim.price + selectedColor.price;
   return (
     <div className={styles.modelDetails}>
       <img
-        title={selectedTrim.name}
+        title={name}
         className={styles.image}
-        alt={selectedColor.name}
-        src={selectedColor.imageUrl}
+        alt={name}
+        src={trim.color.imageUrl}
       />
       <div className={styles.name}>
-        {model.name} <span className={styles.trim}>{selectedTrim.name}</span>
-        <div className={styles.color}>{selectedColor.name}</div>
+        {name} <span className={styles.trim}>{trim.name}</span>
+        <div className={styles.color}>{trim.color.name}</div>
       </div>
       <Price className={styles.price} price={price} />
     </div>
   )
 };
-

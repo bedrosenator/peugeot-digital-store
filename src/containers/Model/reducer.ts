@@ -103,14 +103,11 @@ function modelsReducer(state = initialState, action: ModelActionTypes) {
         ...state,
         loading: false,
         data,
-        // data: {
-        //   ...action.data,
-        //   trims: sortBy<ITrim>(action.data.trims, 'price')
-        // }
+        selectedTrim: data.trims[0],
+        selectedColor: data.trims[0].colors[0],
       }
     // todo add error handling
     case GET_MODEL_ERROR:
-      debugger
       return {
         ...state,
         loading: false,

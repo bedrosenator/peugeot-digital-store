@@ -1,19 +1,21 @@
 .colors {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  padding: 2rem 4rem 6rem;
-  flex-basis: 5rem;
+  .colorsList {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 2rem 4rem 6rem;
+    flex-basis: 5rem;
 
-  @media only screen and (max-width: 1024px) {
-    padding: 0.5rem;
-  }
+    @media only screen and (max-width: 1024px) {
+      padding: 0.5rem;
+    }
 
-  > img {
-    border: 1px solid red;
-  }
+    > img {
+      border: 1px solid red;
+    }
 
-  .title {
-    margin-top: 4rem;
+    .title {
+      margin-top: 4rem;
+    }
   }
 }

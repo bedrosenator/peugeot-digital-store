@@ -1,11 +1,9 @@
 import React, { FC } from 'react';
 import { ITrim } from 'types/Model';
-import containerStyles from 'components/PageContainer/PageContainer.module.scss';
 import Trim from './Trim';
 import { useHistory } from 'react-router-dom';
-import styles from './Trims.module.scss';
-import NavPanel from 'components/NavPanel';
 import Title from 'components/Title';
+import styles from './Trims.module.scss';
 
 type TTrimsProps = {
   trims: ITrim[],
@@ -26,7 +24,6 @@ const Trims: FC<TTrimsProps> = ({ trims, selectedTrim }: TTrimsProps) => {
           return <Trim key={trim.name} active={trim.name === selectedTrim.name} trim={trim} />
         })}
       </div>
-      <NavPanel handleForward={goToColorsPage} />
     </>
   );
 };

@@ -30,8 +30,6 @@ function* getModelSaga({ data }: IGetModel) {
     const model = yield makeRequest('cars/model/' + data);
     const sortedByTrims = sortModelTrims(model);
     yield put(getModelSuccess(sortedByTrims));
-    yield put(setActiveTrim(model.trims[0]));
-    yield put(setActiveColor(model.trims[0].colors[0]));
   }
 }
 
