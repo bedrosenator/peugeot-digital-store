@@ -1,26 +1,28 @@
-//todo refactor styles
 @import "styles/variables";
 
 .priceModelButton {
   padding: 2rem;
   margin-top: 1rem;
-  background-color: #ffffff;
+  background-color: $white;
   border: 1px solid $navyBlue;
   font-weight: bold;
   transition: 0.7s;
+
   &.active {
-    color: #ffffff;
+    color: $white;
     background-color: $navyBlue;
+
     &:hover {
-      background-color: rgba(0,126,219,.7);
+      background: $trimActiveHoverColor;
     }
+
     .name {
-      color: #ffffff;
+      color: $white;
     }
   }
 
   &:hover {
-    background-color: rgba(0,126,219,.1);
+    background-color: $trimHoverColor;
   }
 
   .name {
@@ -28,6 +30,7 @@
     color: $navyBlue;
     text-transform: uppercase;
   }
+
   .price {
     font-size: 0.9rem;
     margin-top: 0.4rem;

@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { ITrim } from 'types/Model';
 import Trim from './Trim';
-import { useHistory } from 'react-router-dom';
 import Title from 'components/Title';
 import styles from './Trims.module.scss';
 
@@ -11,11 +10,6 @@ type TTrimsProps = {
 }
 
 const Trims: FC<TTrimsProps> = ({ trims, selectedTrim }: TTrimsProps) => {
-  const history = useHistory();
-  const goToColorsPage = () => {
-    history.push('colors');
-  };
-
   return (
     <>
       <div className={styles.trims}>

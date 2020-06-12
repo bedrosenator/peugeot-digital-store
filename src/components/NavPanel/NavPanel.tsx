@@ -1,4 +1,4 @@
-import React, {FC, ReactElement} from 'react';
+import React, { FC, ReactElement } from 'react';
 import styles from './NavPanel.module.scss';
 import Button from 'components/Button';
 import { useHistory } from 'react-router-dom';

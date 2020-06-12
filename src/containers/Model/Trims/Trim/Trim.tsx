@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import { ITrim } from 'types/Model';
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import Price from 'components/Price';
 import { Button } from 'components/Button/Button';
@@ -14,14 +14,14 @@ interface ITrimProps {
 
 const Trim: FC<ITrimProps> = ({ trim, active }: ITrimProps) => {
   const dispatch = useDispatch();
-  const handleTrimClick = (trim: ITrim): void => {
+  const handleTrimSelect = (trim: ITrim): void => {
     dispatch(setActiveTrim(trim))
   }
 
   return (
     <Button
-      onClick={() => handleTrimClick(trim)}
-      className={classNames(styles.priceModelButton, { [styles.active]: active  })}
+      onClick={() => handleTrimSelect(trim)}
+      className={classNames(styles.priceModelButton, { [styles.active]: active })}
       variant="outlined"
     >
       <>

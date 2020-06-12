@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { IColor, ITrim } from 'types/Model';
+import { IColor } from 'types/Model';
 import Color from './Color';
 import styles from './Colors.module.scss';
 import Title from 'components/Title';

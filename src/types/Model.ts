@@ -34,3 +34,13 @@ export interface IModelDetails {
   name: string,
   trims: ITrim[],
 }
+
+export interface ISelectedModel {
+  name: string,
+  code: string,
+  trim: {
+    color: IColor,
+    name: string,
+    price: string,
+  }
+}

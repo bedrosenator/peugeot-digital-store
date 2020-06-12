@@ -2,15 +2,15 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps, useHistory } from 'react-router-dom';
 import {
+  checkoutModelSelector,
   getModelLoaderSelector,
   getModelSelector,
   getSelectedColorSelector,
-  getSelectedModelSelector,
   getSelectedTrimSelector
 } from 'containers/Model/selectors';
 import PageContainer from 'components/PageContainer/PageContainer';
-import { ITrim, IModelDetails, IColor } from 'types/Model';
-import {checkout, getModel} from './actions';
+import { ITrim, IModelDetails, IColor, ICheckoutModel } from 'types/Model';
+import { checkout, getModel } from './actions';
 import Colors from './Colors';
 import ModelDetails from './ModelDetails';
 import styles from './Model.module.scss';
@@ -25,20 +25,14 @@ type TModelParams = {
 function Model({ match: { params: { id, step } } }: RouteComponentProps<TModelParams>) {
   const history = useHistory();
   const dispatch = useDispatch();
-  // todo add interface
-  const selectedModel = useSelector(getSelectedModelSelector)
+  const checkoutModel: ICheckoutModel = useSelector(checkoutModelSelector);
   const model: IModelDetails = useSelector(getModelSelector);
   const selectedTrim: ITrim = useSelector(getSelectedTrimSelector);
   const selectedColor: IColor = useSelector(getSelectedColorSelector);
   const loading: boolean = useSelector(getModelLoaderSelector);
-  const goToColorsPage = () => history.push('colors');
+  const goToColorsPage = (): void => history.push('colors');
 
   const handleCheckout = () => {
-    const checkoutModel = {
-      modelName: selectedModel.name,
-      colorName: selectedModel.trim.color.name,
-      trimName: selectedModel.trim.name,
-    }
     dispatch(checkout(checkoutModel));
   };
 
@@ -55,7 +49,7 @@ function Model({ match: { params: { id, step } } }: RouteComponentProps<TModelPa
         <div className={styles.modelEquipment}>
           {step === 'trims' &&
             <NavPanel handleForward={goToColorsPage}>
-              <Trims selectedTrim={selectedTrim} trims={model.trims}/>
+              <Trims trims={model.trims} selectedTrim={selectedTrim} />
             </NavPanel>}
           {step === 'colors' &&
             <NavPanel handleCheckout={handleCheckout}>

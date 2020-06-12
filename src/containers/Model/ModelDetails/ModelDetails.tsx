@@ -5,10 +5,10 @@ import { useSelector } from 'react-redux';
 import {
   getSelectedModelSelector,
   totalPriceSelector
-} from '../selectors';
+} from 'containers/Model/selectors';
 
 export const ModelDetails: FC = () => {
-  const price = useSelector(totalPriceSelector);
+  const totalPrice = useSelector(totalPriceSelector);
   const { name, trim } = useSelector(getSelectedModelSelector);
 
   return (
@@ -23,7 +23,7 @@ export const ModelDetails: FC = () => {
         {name} <span className={styles.trim}>{trim.name}</span>
         <div className={styles.color}>{trim.color.name}</div>
       </div>
-      <Price className={styles.price} price={price} />
+      <Price className={styles.price} price={totalPrice} />
     </div>
   )
 };
