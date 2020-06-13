@@ -2,7 +2,7 @@ import { GET_MODELS, GET_MODELS_SUCCESS, GET_MODELS_ERROR } from 'containers/Mod
 import { ModelsActionTypes} from 'types/actions';
 import { IModel } from 'types/Model';
 
-interface IModelsReducer {
+export interface IModelsReducer {
   data: IModel[]
   loading: boolean,
   error: Error | null,

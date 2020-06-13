@@ -2,14 +2,15 @@ import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classnames from 'classnames';
 import ModelsList from 'containers/Models/ModelsList';
-import { getModelsSelector } from 'containers/Models/selectors';
+import { selectModels, selectModelsLoader } from 'containers/Models/selectors';
 import PageContainer from 'components/PageContainer/PageContainer';
 import { Title } from 'components/Title/Title';
 import { getModels } from './actions';
 import styles from './Models.module.scss';
 
 const Models: FC = () => {
-  const models = useSelector(getModelsSelector);
+  const models = useSelector(selectModels);
+  const loading = useSelector(selectModelsLoader);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -17,14 +18,10 @@ const Models: FC = () => {
   }, [dispatch])
 
   return (
-    <PageContainer loading={models.loading}>
+    <PageContainer loading={loading}>
       <div className={classnames(styles.models)}>
-        {!models.loading &&
-          <>
-            <Title className={styles.title} text="CHOOSE YOUR NEW CAR" />
-            <ModelsList models={models.data} />
-          </>
-        }
+        <Title className={styles.title} text="CHOOSE YOUR NEW CAR" />
+        <ModelsList models={models} />
       </div>
     </PageContainer>
   );
