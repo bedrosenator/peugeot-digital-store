@@ -28,7 +28,6 @@ export interface IGetModelsError {
 
 export interface IGetModel {
   type: typeof GET_MODEL,
-  // data: IModelDetails,
   data: string,
 }
 

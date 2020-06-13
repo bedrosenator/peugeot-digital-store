@@ -1,5 +1,4 @@
-import {AppActionTypes, IGetModel, IGetModelSuccess, ModelActionTypes} from 'types/actions';
-import { adaptTrim } from './adapters';
+import { ModelActionTypes} from 'types/actions';
 
 import {
   CHECKOUT,

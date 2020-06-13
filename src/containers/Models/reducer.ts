@@ -14,8 +14,7 @@ const initialState: IModelsReducer = {
   loading: false,
 };
 
-// todo change IGetModel to specific interface
-function modelsReducer(state = initialState, { type, data = [] }: ModelsActionTypes): IModelsReducer {
+function modelsReducer(state = initialState, { type, data }: ModelsActionTypes) {
   switch (type) {
     case GET_MODELS:
       return {
@@ -25,14 +24,14 @@ function modelsReducer(state = initialState, { type, data = [] }: ModelsActionTy
     case GET_MODELS_SUCCESS:
       return {
         ...state,
-        //@ts-ignore
         data: data,
-        loading: false,
+        loading: false
       }
     case GET_MODELS_ERROR:
       return {
         ...state,
         loading: false,
+        error: data,
       }
     default:
       return state;
