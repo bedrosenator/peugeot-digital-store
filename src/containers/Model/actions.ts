@@ -23,11 +23,6 @@ export const getModel = (id: string): IGetModel => {
   return {
     type: GET_MODEL,
     data: id
-    // data: {
-    //   code: id,
-    //   name: '',
-    //   trims: [],
-    // }
   }
 };
 

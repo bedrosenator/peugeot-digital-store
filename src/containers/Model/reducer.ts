@@ -90,9 +90,6 @@ function modelsReducer(state = initialState, action: ModelActionTypes) {
         data: {
           ...state.data,
           currentModel: data,
-          // selectedTrim: typeof data !== 'string' && adaptTrim(data),
-          // selectedTrim: data.trims[0],
-          // selectedColor: data.trims[0].colors[0],
         },
         error: null,
       }
