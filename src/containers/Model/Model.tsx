@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps, useHistory } from 'react-router-dom';
 import {
-  checkoutModelSelector,
-  getModelLoaderSelector,
-  getModelSelector,
-  getSelectedColorSelector,
-  getSelectedTrimSelector
+  selectCheckoutModel,
+  selectModelLoader,
+  selectCurrentModel,
+  selectActiveColor,
+  selectActiveTrim
 } from 'containers/Model/selectors';
 import PageContainer from 'components/PageContainer/PageContainer';
 import { ITrim, IModelDetails, IColor, ICheckoutModel } from 'types/Model';
@@ -25,11 +25,11 @@ type TModelParams = {
 function Model({ match: { params: { id, step } } }: RouteComponentProps<TModelParams>) {
   const history = useHistory();
   const dispatch = useDispatch();
-  const checkoutModel: ICheckoutModel = useSelector(checkoutModelSelector);
-  const model: IModelDetails = useSelector(getModelSelector);
-  const selectedTrim: ITrim = useSelector(getSelectedTrimSelector);
-  const selectedColor: IColor = useSelector(getSelectedColorSelector);
-  const loading: boolean = useSelector(getModelLoaderSelector);
+  const checkoutModel: ICheckoutModel = useSelector(selectCheckoutModel);
+  const model: IModelDetails = useSelector(selectCurrentModel);
+  const selectedTrim: ITrim = useSelector(selectActiveTrim);
+  const selectedColor: IColor = useSelector(selectActiveColor);
+  const loading: boolean = useSelector(selectModelLoader);
   const goToColorsPage = (): void => history.push('colors');
 
   const handleCheckout = () => {

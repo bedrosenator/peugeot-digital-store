@@ -3,13 +3,13 @@ import Price from 'components/Price';
 import styles from './ModelDetails.module.scss';
 import { useSelector } from 'react-redux';
 import {
-  getSelectedModelSelector,
-  totalPriceSelector
+  selectActiveModel,
+  selectTotalPrice
 } from 'containers/Model/selectors';
 
 export const ModelDetails: FC = () => {
-  const totalPrice = useSelector(totalPriceSelector);
-  const { name, trim } = useSelector(getSelectedModelSelector);
+  const totalPrice = useSelector(selectTotalPrice);
+  const { name, trim } = useSelector(selectActiveModel);
 
   return (
     <div className={styles.modelDetails}>
