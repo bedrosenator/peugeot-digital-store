@@ -1,10 +1,10 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
-import { checkoutError, checkoutSuccess, getModelError, getModelSuccess } from './actions';
+import {checkoutError, checkoutSuccess, getModelError, getModelSuccess, setActiveColor, setActiveTrim} from './actions';
 import { api, utils } from 'utils';
 import {ITrim, IModelDetails, IColor } from 'types/Model';
 import { ICheckout, IGetModel } from 'types/actions';
 import appHistory from 'appHistory';
-import { CHECKOUT, CHECKOUT_STATUS, GET_MODEL } from './constants';
+import { CHECKOUT, CHECKOUT_ERROR, CHECKOUT_STATUS, GET_MODEL } from './constants';
 
 function* sagaWatcher() {
   yield takeLatest([GET_MODEL], getModelSaga);
@@ -16,6 +16,8 @@ function* getModelSaga({ data }: IGetModel) {
     const model = yield api.request({ uri: `cars/model/${data}`, errorAction: getModelError });
     const sortedByTrims = sortModelTrims(model);
     yield put(getModelSuccess(sortedByTrims));
+    yield put(setActiveTrim(sortedByTrims.trims[0]));
+    yield put(setActiveColor(sortedByTrims.trims[0].colors[0]));
   }
 }
 
@@ -42,9 +44,8 @@ function* checkoutSaga(checkoutModel: ICheckout) {
     errorAction: checkoutError
   });
 
-  if (model && model.error) {
+  if (model.type === CHECKOUT_ERROR) {
     appHistory.push(`/checkout/${CHECKOUT_STATUS.FAILURE}`);
-    yield put(checkoutError(model.error));
   } else {
     yield call(checkoutSuccess);
     appHistory.push(`/checkout/${CHECKOUT_STATUS.SUCCESS}`);

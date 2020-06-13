@@ -1,7 +1,7 @@
 export type TError = {
   status: number,
   statusText: string,
-} | null;
+};
 
 export interface IModel {
   code: string,

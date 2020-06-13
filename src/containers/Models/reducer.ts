@@ -25,6 +25,7 @@ function modelsReducer(state = initialState, { type, data = [] }: ModelsActionTy
     case GET_MODELS_SUCCESS:
       return {
         ...state,
+        //@ts-ignore
         data: data,
         loading: false,
       }

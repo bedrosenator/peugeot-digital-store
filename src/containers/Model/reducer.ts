@@ -1,92 +1,75 @@
-import {
-  IGetModelSuccess, ModelActionTypes,
-} from 'types/actions';
+import {AppActionTypes, IGetModel, IGetModelSuccess, ModelActionTypes} from 'types/actions';
+import { adaptTrim } from './adapters';
 
 import {
   CHECKOUT,
   CHECKOUT_ERROR,
+  CHECKOUT_STATUS,
   CHECKOUT_SUCCESS,
   GET_MODEL,
   GET_MODEL_ERROR,
   GET_MODEL_SUCCESS,
   SET_ACTIVE_COLOR,
   SET_ACTIVE_TRIM,
-  CHECKOUT_STATUS,
 } from './constants';
 
-import {IColor, ITrim, IModelDetails, ICheckoutModel} from 'types/Model';
+import { ICheckoutModel, IColor, IModelDetails, ITrim, TError } from 'types/Model';
 
-// export type TError = {
-//   status: number,
-//   statusText: string,
-// };
-//
-// export interface IColor {
-//   name: string,
-//   imageUrl: string,
-//   price: number,
-//   iconUrl: string,
-// }
-//
-// export interface ITrim {
-//   colors: IColor[],
-//   name: string,
-//   price: string,
-// }
-//
-// export type TModelDetails = {
-//   code: string,
-//   // imageUrl: string,
-//   name: string,
-//   // priceFrom: string,
-//   trims: ITrim[]
-// };
-//
-// class TModelDetails {
-// }
-
-export type TActionType = {
-  // type?: string,
-  // todo add model type
-  data: IModelDetails,
+export type TModelActionType = {
+  data: {
+    currentModel: IModelDetails,
+    selectedTrim: ITrim,
+    selectedColor: IColor,
+    checkoutModel: ICheckoutModel,
+    checkoutStatus: boolean | null,
+  },
   loading: boolean,
-  error: Error | null,
-  selectedTrim: ITrim,
-  selectedColor: IColor,
-  checkoutModel: ICheckoutModel,
-  checkoutStatus: boolean | null,
+  error: TError,
 };
 
-const initialState: TActionType = {
+const currentModel: IModelDetails = {
+  code: '',
+  name: '',
+  trims: []
+};
+
+const selectedColor: IColor = {
+  name: '',
+  imageUrl: '',
+  price: 0,
+  iconUrl: '',
+};
+
+const checkoutModel: ICheckoutModel = {
+  modelName: '',
+  colorName: '',
+  trimName: '',
+}
+
+const selectedTrim: ITrim = {
+  name: '',
+  price: '',
+  colors: []
+};
+
+const initialState: TModelActionType = {
   data: {
-    code: '',
-    name: '',
-    trims: []
+    currentModel,
+    selectedTrim,
+    selectedColor,
+    checkoutModel,
+    checkoutStatus: null,
   },
-  selectedTrim: {
-    name: '',
-    price: '',
-    colors: []
+  error: {
+    status: 0,
+    statusText: '',
   },
-  selectedColor: {
-    name: '',
-    imageUrl: '',
-    price: 0,
-    iconUrl: '',
-  },
-  checkoutModel: {
-    modelName: '',
-    colorName: '',
-    trimName: '',
-  },
-  checkoutStatus: null,
-  error: null,
   loading: false,
 };
-// todo change IGetModel to specific interface
+
 function modelsReducer(state = initialState, action: ModelActionTypes) {
-  // @ts-ignore
-  const { data, type, error } = action;
+  const { data, type } = action;
+
   switch (type) {
     case GET_MODEL:
       return {
@@ -94,7 +77,10 @@ function modelsReducer(state = initialState, action: ModelActionTypes) {
         loading: true,
         data: {
           ...state.data,
-          code: data,
+          currentModel: {
+            ...state.data.currentModel,
+            code: data,
+          }
         },
         error: null,
       }
@@ -102,45 +88,67 @@ function modelsReducer(state = initialState, action: ModelActionTypes) {
       return {
         ...state,
         loading: false,
-        data,
-        selectedTrim: data.trims[0],
-        selectedColor: data.trims[0].colors[0],
+        data: {
+          ...state.data,
+          currentModel: data,
+          // selectedTrim: typeof data !== 'string' && adaptTrim(data),
+          // selectedTrim: data.trims[0],
+          // selectedColor: data.trims[0].colors[0],
+        },
+        error: null,
       }
-    // todo add error handling
     case GET_MODEL_ERROR:
       return {
         ...state,
         loading: false,
-        error,
+        error: data,
       }
     case SET_ACTIVE_TRIM:
       return {
         ...state,
-        selectedTrim: data,
+        data: {
+          ...state.data,
+          selectedTrim: data,
+        }
       }
     case SET_ACTIVE_COLOR:
       return {
         ...state,
-        selectedColor: data,
+        data: {
+          ...state.data,
+          selectedColor: data,
+        }
       }
     case CHECKOUT:
       return {
         ...state,
-        checkoutModel: data,
-        checkoutStatus: null,
+        data: {
+          ...state.data,
+          checkoutModel: {
+            ...state.data.checkoutModel,
+            modelName: data,
+          },
+          checkoutStatus: null,
+        },
         loading: true,
       }
     case CHECKOUT_SUCCESS:
       return {
         ...state,
-        checkoutStatus: CHECKOUT_STATUS.SUCCESS,
+        data: {
+          ...state.data,
+          checkoutStatus: CHECKOUT_STATUS.SUCCESS,
+        },
         loading: false,
       }
     case CHECKOUT_ERROR:
       return {
         ...state,
+        data: {
+          ...state.data,
+          checkoutStatus: CHECKOUT_STATUS.FAILURE,
+        },
         error: data,
-        checkoutStatus: CHECKOUT_STATUS.FAILURE,
         loading: false,
       }
     default:

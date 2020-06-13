@@ -1,21 +1,25 @@
 import { TRootReducerState } from 'reducer';
-import { TActionType } from './reducer';
+import { TModelActionType } from './reducer';
 import { createSelector } from 'reselect';
 import { ICheckoutModel, IColor, IModelDetails, ISelectedModel, ITrim } from 'types/Model';
 
-export const getModelDataSelector = (state: TRootReducerState) => {
-  return state.model && state.model;
+export const modelSelector = (state: TRootReducerState) => {
+  return state.model;
 };
 
-export const getModelSelector = createSelector(getModelDataSelector, (model: TActionType): IModelDetails => {
+export const getModelDataSelector = createSelector(modelSelector, (model: TModelActionType ) => {
   return model.data;
 });
 
-export const getSelectedTrimSelector = createSelector(getModelDataSelector, (model: TActionType): ITrim => {
+export const getModelSelector = createSelector(getModelDataSelector, (model): IModelDetails => {
+  return model.currentModel;
+});
+
+export const getSelectedTrimSelector = createSelector(getModelDataSelector, (model): ITrim => {
   return model.selectedTrim;
 });
 
-export const getSelectedColorSelector = createSelector(getModelDataSelector, (model: TActionType): IColor => {
+export const getSelectedColorSelector = createSelector(getModelDataSelector, (model): IColor => {
   return model.selectedColor;
 });
 
@@ -48,6 +52,6 @@ export const totalPriceSelector = createSelector(getSelectedModelSelector, (mode
   return model.trim.price + model.trim.color.price;
 });
 
-export const getModelLoaderSelector = createSelector(getModelDataSelector, (state: TActionType): boolean => {
+export const getModelLoaderSelector = createSelector(modelSelector, (state: TModelActionType): boolean => {
   return state.loading;
 });

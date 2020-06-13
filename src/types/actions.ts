@@ -11,38 +11,35 @@ import {
 } from 'containers/Model/constants';
 import { ITrim, IModel, TError, IModelDetails, IColor, ICheckoutModel } from 'types/Model';
 
-interface IBaseModel {
-  data?: IModelDetails | string,
-  error?: TError,
-}
-
-interface IBaseModels {
-  error?: TError,
-  data?: IModel[],
-}
-
-export interface IGetModels extends IBaseModels {
+export interface IGetModels {
   type: typeof GET_MODELS,
+  data?: IModel[]
 }
 
-export interface IGetModelsSuccess extends IBaseModels {
+export interface IGetModelsSuccess {
   type: typeof GET_MODELS_SUCCESS,
+  data: IModel[]
 }
 
-export interface IGetModelsError extends IBaseModels {
+export interface IGetModelsError {
   type: typeof GET_MODELS_ERROR,
+  data: TError,
 }
 
-export interface IGetModel extends IBaseModel {
+export interface IGetModel {
   type: typeof GET_MODEL,
+  // data: IModelDetails,
+  data: string,
 }
 
-export interface IGetModelSuccess extends IBaseModel {
+export interface IGetModelSuccess {
   type: typeof GET_MODEL_SUCCESS,
+  data: IModelDetails,
 }
 
-export interface IGetModelError extends IBaseModel {
+export interface IGetModelError {
   type: typeof GET_MODEL_ERROR,
+  data: TError,
 }
 
 export interface ISetActiveTrim {
@@ -62,12 +59,12 @@ export interface ICheckout {
 
 export interface ICheckoutSuccess {
   type: typeof CHECKOUT_SUCCESS,
-  data: typeof CHECKOUT_STATUS,
+  data: typeof CHECKOUT_STATUS.SUCCESS,
 }
 
 export interface ICheckoutError {
   type: typeof CHECKOUT_ERROR,
-  error: TError,
+  data: TError,
 }
 
 export type ModelsActionTypes = IGetModels | IGetModelsSuccess | IGetModelsError;
