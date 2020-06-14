@@ -1,4 +1,4 @@
-import { fork, spawn, all, call } from 'redux-saga/effects'
+import { spawn, all, call } from 'redux-saga/effects'
 import modelsSaga from 'containers/Models/saga';
 import modelSaga from 'containers/Model/saga';
 

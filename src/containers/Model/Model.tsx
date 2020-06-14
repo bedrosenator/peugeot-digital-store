@@ -38,7 +38,7 @@ function Model({ match: { params: { id, step } } }: RouteComponentProps<TModelPa
 
   useEffect(() => {
     dispatch(getModel(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   return (
     <PageContainer className={styles.model} loading={loading}>

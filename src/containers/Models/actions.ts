@@ -1,6 +1,6 @@
 import { GET_MODELS, GET_MODELS_SUCCESS, GET_MODELS_ERROR } from 'containers/Models/constants';
 import { TError, IModel } from 'types/Model';
-import {IGetModelsSuccess, IGetModels, IGetModelsError, ModelsActionTypes, IGetModel} from 'types/actions';
+import {IGetModelsSuccess, IGetModels, IGetModelsError } from 'types/actions';
 
 export function getModels(): IGetModels {
   return {
